@@ -1,4 +1,4 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
 /**
  * Callback for asynchronous hot reload completion.

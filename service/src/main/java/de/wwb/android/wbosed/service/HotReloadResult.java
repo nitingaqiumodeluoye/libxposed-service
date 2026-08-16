@@ -1,4 +1,4 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +13,7 @@ import io.github.libxposed.annotation.SinceApi;
  *                null message means the old module refused reload by returning {@code false} from
  *                {@code onHotReloading}; a non-null message describes a reload exception.
  */
-@SinceApi(XposedService.API_102)
+@SinceApi(WbService.API_102)
 public record HotReloadResult(@NonNull Status status, @Nullable String message) {
     /**
      * Hot reload completion status.
@@ -57,12 +57,12 @@ public record HotReloadResult(@NonNull Status status, @Nullable String message) 
 
     static HotReloadResult from(int code, @Nullable String message) {
         var status = switch (code) {
-            case IXposedService.HOT_RELOAD_SUCCEEDED -> Status.SUCCEEDED;
-            case IXposedService.HOT_RELOAD_FAILED -> Status.FAILED;
-            case IXposedService.HOT_RELOAD_UNSUPPORTED -> Status.UNSUPPORTED;
-            case IXposedService.HOT_RELOAD_IN_PROGRESS -> Status.IN_PROGRESS;
-            case IXposedService.HOT_RELOAD_PROCESS_DIED -> Status.PROCESS_DIED;
-            default -> throw new XposedService.ServiceException("Invalid hot reload status code: " + code);
+            case IWbService.HOT_RELOAD_SUCCEEDED -> Status.SUCCEEDED;
+            case IWbService.HOT_RELOAD_FAILED -> Status.FAILED;
+            case IWbService.HOT_RELOAD_UNSUPPORTED -> Status.UNSUPPORTED;
+            case IWbService.HOT_RELOAD_IN_PROGRESS -> Status.IN_PROGRESS;
+            case IWbService.HOT_RELOAD_PROCESS_DIED -> Status.PROCESS_DIED;
+            default -> throw new WbService.ServiceException("Invalid hot reload status code: " + code);
         };
         return new HotReloadResult(status, message);
     }

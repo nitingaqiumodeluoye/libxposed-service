@@ -1,4 +1,4 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,19 +29,19 @@ public final class RemotePreferences implements SharedPreferences {
 
     static volatile boolean shouldNotifyCleared = false;
 
-    private final XposedService mService;
+    private final WbService mService;
     private final String mGroup;
     private final Map<OnSharedPreferenceChangeListener, Object> mListeners = Collections.synchronizedMap(new WeakHashMap<>());
 
     private volatile Map<String, Object> mMap;
 
-    private RemotePreferences(XposedService service, String group) {
+    private RemotePreferences(WbService service, String group) {
         this.mService = service;
         this.mGroup = group;
     }
 
     @NonNull
-    static RemotePreferences newInstance(XposedService service, String group) throws RemoteException {
+    static RemotePreferences newInstance(WbService service, String group) throws RemoteException {
         var output = service.asInterface().requestRemotePreferences(group);
         if (output == null) throw new RemoteException("Framework returns null");
         var prefs = new RemotePreferences(service, group);

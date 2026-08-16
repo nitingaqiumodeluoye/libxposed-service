@@ -1,4 +1,4 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,11 +20,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import io.github.libxposed.annotation.SinceApi;
 
 @SuppressWarnings("unused")
-public final class XposedService {
+public final class WbService {
     /**
      * API version 101.
      */
-    public static final int API_101 = IXposedService.API_101;
+    public static final int API_101 = IWbService.API_101;
 
     /**
      * API version 102.
@@ -34,22 +34,22 @@ public final class XposedService {
      * <li>Hot reload can be requested for a hooked target when permitted by the framework.</li>
      * </ul>
      */
-    public static final int API_102 = IXposedService.API_102;
+    public static final int API_102 = IWbService.API_102;
 
     /**
      * The framework has the capability to hook system_server and other system processes.
      */
-    public static final long PROP_CAP_SYSTEM = IXposedService.PROP_CAP_SYSTEM;
+    public static final long PROP_CAP_SYSTEM = IWbService.PROP_CAP_SYSTEM;
 
     /**
      * The framework provides remote preferences and remote files support.
      */
-    public static final long PROP_CAP_REMOTE = IXposedService.PROP_CAP_REMOTE;
+    public static final long PROP_CAP_REMOTE = IWbService.PROP_CAP_REMOTE;
 
     /**
      * The framework disallows accessing Xposed API via reflection or dynamically loaded code.
      */
-    public static final long PROP_RT_API_PROTECTION = IXposedService.PROP_RT_API_PROTECTION;
+    public static final long PROP_RT_API_PROTECTION = IWbService.PROP_RT_API_PROTECTION;
 
     public static final class ServiceException extends RuntimeException {
         ServiceException(String message) {
@@ -61,7 +61,7 @@ public final class XposedService {
         }
     }
 
-    private static final Map<OnScopeEventListener, IXposedScopeCallback> scopeCallbacks = new ConcurrentHashMap<>();
+    private static final Map<OnScopeEventListener, IWbScopeCallback> scopeCallbacks = new ConcurrentHashMap<>();
     private static final Set<IHotReloadCallback> hotReloadCallbacks = ConcurrentHashMap.newKeySet();
 
     /**
@@ -84,8 +84,8 @@ public final class XposedService {
         default void onScopeRequestFailed(@NonNull String message) {
         }
 
-        private IXposedScopeCallback asInterface() {
-            return scopeCallbacks.computeIfAbsent(this, (listener) -> new IXposedScopeCallback.Stub() {
+        private IWbScopeCallback asInterface() {
+            return scopeCallbacks.computeIfAbsent(this, (listener) -> new IWbScopeCallback.Stub() {
                 @Override
                 public void onScopeRequestApproved(List<String> approved) {
                     listener.onScopeRequestApproved(approved);
@@ -119,14 +119,14 @@ public final class XposedService {
         void onHotReloadResult(@NonNull HookedTarget target, @NonNull HotReloadResult result);
     }
 
-    private final IXposedService mService;
+    private final IWbService mService;
     private final Map<String, RemotePreferences> mRemotePrefs = new HashMap<>();
 
-    XposedService(IXposedService service) {
+    WbService(IWbService service) {
         mService = service;
     }
 
-    IXposedService asInterface() {
+    IWbService asInterface() {
         return mService;
     }
 

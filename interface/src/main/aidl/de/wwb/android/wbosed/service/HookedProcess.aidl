@@ -1,4 +1,4 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
 /**
  * Information about a process currently hooked by this module.

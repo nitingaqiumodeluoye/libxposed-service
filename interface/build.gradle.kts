@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.libxposed.service.interfaces"
+    namespace = "de.wwb.android.wbosed.service.interfaces"
     compileSdk = 37
     buildToolsVersion = "37.0.0"
     androidResources.enable = false

@@ -1,11 +1,11 @@
-package io.github.libxposed.service;
+package de.wwb.android.wbosed.service;
 
-import io.github.libxposed.service.HookedProcess;
-import io.github.libxposed.service.IHotReloadCallback;
-import io.github.libxposed.service.IXposedScopeCallback;
+import de.wwb.android.wbosed.service.HookedProcess;
+import de.wwb.android.wbosed.service.IHotReloadCallback;
+import de.wwb.android.wbosed.service.IWbScopeCallback;
 
-interface IXposedService {
-    const String AUTHORITY_SUFFIX = ".XposedService";
+interface IWbService {
+    const String AUTHORITY_SUFFIX = ".WbService";
     const String SEND_BINDER = "SendBinder";
 
     /**
@@ -63,7 +63,7 @@ interface IXposedService {
 
     // scope utilities
     List<String> getScope() = 10;
-    oneway void requestScope(in List<String> packages, IXposedScopeCallback callback) = 11;
+    oneway void requestScope(in List<String> packages, IWbScopeCallback callback) = 11;
     void removeScope(in List<String> packages) = 12;
 
     /**
